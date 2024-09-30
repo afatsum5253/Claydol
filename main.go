@@ -10,20 +10,15 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
-
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-}
 
 func main() {
 	r := gin.Default()
 
 	apiKey := os.Getenv("CLAYDOL_OPENAI_API_KEY")
+	if apiKey == "" {
+		log.Fatal("OPENAI_API_KEY is not set")
+	}
 
 	r.POST("/generate", func(c *gin.Context) {
 
