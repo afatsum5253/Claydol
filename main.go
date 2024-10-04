@@ -15,6 +15,10 @@ import (
 func main() {
 	r := gin.Default()
 
+	if os.Getenv("CLAYDOL_ENVIRONMENT") == "production" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	apiKey := os.Getenv("CLAYDOL_OPENAI_API_KEY")
 	if apiKey == "" {
 		log.Fatal("OPENAI_API_KEY is not set")
